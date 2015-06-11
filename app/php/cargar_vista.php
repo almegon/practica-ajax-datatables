@@ -31,25 +31,25 @@ $columns = array(
     array( 'db' => 'id_doctor', 'dt' => 'idDoctor' ),
     array( 'db' => 'nombre',  'dt' => 'nombre' ),
     array( 'db' => 'numcolegiado',   'dt' => 'numcolegiado' ),
-    array( 'db' => 'nombre_clinica',     'dt' => 'nombreClinica' ),
-    array( 'db' => 'id_clinica',     'dt' => 'idClinica' )
+    array( 'db' => 'nombreclinicas',     'dt' => 'nombreclinicas' ),
+    array( 'db' => 'id_clinicas',     'dt' => 'id_clinicas' )
 );
  
 // SQL server connection information
-/*
+
 $sql_details = array(
     'user' => 'root',
     'pass' => 'root',
     'db'   => 'datatables',
     'host' => 'localhost'
 );
-*/
-$sql_details = array(
+
+/*$sql_details = array(
     'user' => 'amenes_almegon',
     'pass' => 'almegon',
     'db'   => 'amenes_doctores',
     'host' => 'localhost'
-);
+);*/
  
  
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

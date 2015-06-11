@@ -14,3 +14,7 @@ body {margin-top:50px;}
 #form_edita_doctor{
 	display: none;
 }
+
+li{
+	list-style-type: none;
+}

@@ -34,30 +34,35 @@ $(document).ready(function() {
                 'sSortDescending': ': Activar para ordenar la columna de manera descendente'
             }
         },
-        'ajax': 'php/cargar_vista.php',
+        //'ajax': 'php/cargar_vista.php',
+        'ajax': 'http://localhost/futbolistas/cargar_vista.php',
         'columns': [{
             'data': 'nombre'
         }, {
             'data': 'numcolegiado'
         }, {
-            'data': 'nombreClinica',
+            'data': 'id_clinicas',
+        },{
+            'data': 'nombreclinicas',
             'render': function(data) {
                 return '<li>' + data + '</li><br>';
             }
-        }, {
-            'data': 'idClinica',
-            'visible': false
-        }, {
+        }, //{
+            //'data': 'id_clinicas',
+        //}, 
+        {
             'data': 'idDoctor',
 
             'render': function(data) {
-                return '<a class="btn btn-primary editarbtn" href=http://localhost/php/modificar_clinica.php?id_doctor=' + data + '>Editar</a>';
+                //return '<a class="btn btn-primary editarbtn" href=http://localhost/php/modificar_clinica.php?id_doctor=' + data + '>Editar</a>';
+                return '<a class="btn btn-primary editarbtn" href=http://localhost/futbolistas/modificar_clinica.php?id_doctor=' + data + '>Editar</a>';
             }
         }, {
             'data': 'idDoctor',
 
             'render': function(data) {
-                return '<a data-toggle="modal" data-target="#basicModal"  class="btn btn-warning borrarbtn" href=http://localhost/php/borrar_doctor.php?id_doctor=' + data + '>Borrar</a>';
+                //return '<a data-toggle="modal" data-target="#basicModal"  class="btn btn-warning borrarbtn" href=http://localhost/php/borrar_doctor.php?id_doctor=' + data + '>Borrar</a>';
+                return '<a data-toggle="modal" data-target="#basicModal"  class="btn btn-warning borrarbtn" href=http://localhost/futbolistas/borrar_doctor.php?id_doctor=' + data + '>Borrar</a>';
             }
 
         }]
@@ -80,10 +85,10 @@ $(document).ready(function() {
         $('#idDoctor').val(aData.idDoctor);
         $('#nombre').val(aData.nombre);
         $('#numcolegiado').val(aData.numcolegiado);
-        $('#clinicas').val(aData.nombreClinica);
+        $('#clinicas').val(aData.nombreclinicas);
 
         cargarTarifas();
-        var str = aData.idClinica;
+        var str = aData.id_clinicas;
         str = str.split(',');
         $('#clinicas').val(str);
     });
@@ -103,7 +108,8 @@ $(document).ready(function() {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: 'php/borrar_doctor.php',
+            //url: 'php/borrar_doctor.php',
+            url: 'http://localhost/futbolistas/borrar_doctor.php',
             data: {
                 id_doctor: idDoctor
             },
@@ -142,7 +148,7 @@ $(document).ready(function() {
 
 
 
-    //añador doctor
+    //añadir doctor
     $('#newdoctor').click(function(e) {
         e.preventDefault();
 
@@ -160,14 +166,15 @@ $(document).ready(function() {
         $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: 'php/listar_tarifas.php',
+            //url: 'php/listar_tarifas.php',
+            url: 'http://localhost/futbolistas/listar_tarifas.php',
             async: false,
             error: function(xhr, status, error) {},
             success: function(data) {
                 $('#clinicas2').empty();
                 $.each(data, function() {
                     $('#clinicas2').append(
-                        $('<option ></option>').val(this.id_clinica).html(this.nombre)
+                        $('<option ></option>').val(this.id_clinicas).html(this.nombre)
                     );
                 });
             },
@@ -179,18 +186,19 @@ $(document).ready(function() {
 
 
 
-    /*function cargarTarifas() {
+    function cargarTarifas() {
     $.ajax({
         type: 'POST',
         dataType: 'json',
-        url: 'php/listar_tarifas.php',
+        //url: 'php/listar_tarifas.php',
+        url: 'http://localhost/futbolistas/listar_tarifas.php',
         async: false,
         error: function(xhr, status, error) {},
         success: function(data) {
             $('#clinicas').empty();
             $.each(data, function() {
                 $('#clinicas').append(
-                    $('<option ></option>').val(this.id_clinica).html(this.nombre)
+                    $('<option ></option>').val(this.id_clinicas).html(this.nombre)
                 );
             });
         },
@@ -199,6 +207,6 @@ $(document).ready(function() {
         }
     });
 
-}*/
+}
 
 });
