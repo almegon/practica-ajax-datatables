@@ -1,6 +1,5 @@
 'use strict';
 
-
 var idDoctor;
 
 $(document).ready(function() {
@@ -42,16 +41,13 @@ $(document).ready(function() {
             'data': 'numcolegiado'
         }, {
             'data': 'id_clinicas',
-        },{
+        }, {
             'data': 'nombreclinicas',
             'render': function(data) {
                 return '<li>' + data + '</li><br>';
             }
-        }, //{
-            //'data': 'id_clinicas',
-        //}, 
-        {
-            'data': 'idDoctor',
+        }, {
+            'data': 'id_doctor',
 
             'render': function(data) {
                 //return '<a class="btn btn-primary editarbtn" href=http://localhost/php/modificar_clinica.php?id_doctor=' + data + '>Editar</a>';
@@ -87,18 +83,47 @@ $(document).ready(function() {
         $('#numcolegiado').val(aData.numcolegiado);
         $('#clinicas').val(aData.nombreclinicas);
 
-        cargarTarifas();
+        // cargarTarifas();
         var str = aData.id_clinicas;
         str = str.split(',');
         $('#clinicas').val(str);
     });
 
+    $('#enviar').click(function(e) {
+        e.preventDefault();
 
+
+        var datos = $('#formEditar').serialize();
+
+        window.alert(datos);
+        $.ajax({
+                url: 'http://www.futbolistas.com/editar_doctores.php',
+                type: 'POST',
+                dataType: 'json',
+                data: datos,
+
+            })
+            .done(function() {
+                var $mitabla = $('#miTabla').dataTable({
+                    bRetrieve: true
+                });
+                $mitabla.fnDraw();
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                $('#tabla').fadeIn(100);
+                $('#formulario').fadeOut(100);
+            });
+
+
+    });
 
 
     //borrar
     $('#miTabla').on('click', '.borrarbtn', function(e) {
-        //e.preventDefault();
+        e.preventDefault();
         var nRow = $(this).parents('tr')[0];
         var aData = miTabla.row(nRow).data();
         idDoctor = aData.idDoctor;
@@ -114,12 +139,10 @@ $(document).ready(function() {
                 id_doctor: idDoctor
             },
             error: function(xhr, status, error) {
-                $.growl({
-                    icon: 'glyphicon glyphicon-remove',
-                    message: 'ERROR AL BORRAR DOCTOR'
-                }, {
-                    type: 'danger'
-                });
+
+
+                alert('ERROR AL BORRAR DOCTOR');
+
             },
             success: function(data) {
                 var $mitabla = $('#miTabla').dataTable({
@@ -127,12 +150,8 @@ $(document).ready(function() {
                 });
                 $mitabla.fnDraw();
 
-                $.growl({
-                    icon: 'glyphicon glyphicon-remove',
-                    message: 'DOCTOR BORRADO CORRECTAMENTE'
-                }, {
-                    type: 'success'
-                });
+                alert('DOCTOR BORRADO CORRECTAMENTE');
+
             },
             complete: {
 
@@ -140,7 +159,6 @@ $(document).ready(function() {
         });
         $('#tabla').fadeIn(100);
     });
-    //});
 
 
 
@@ -186,27 +204,27 @@ $(document).ready(function() {
 
 
 
-    function cargarTarifas() {
-    $.ajax({
-        type: 'POST',
-        dataType: 'json',
-        //url: 'php/listar_tarifas.php',
-        url: 'http://localhost/futbolistas/listar_tarifas.php',
-        async: false,
-        error: function(xhr, status, error) {},
-        success: function(data) {
-            $('#clinicas').empty();
-            $.each(data, function() {
-                $('#clinicas').append(
-                    $('<option ></option>').val(this.id_clinicas).html(this.nombre)
-                );
-            });
-        },
-        complete: {
+    // function cargarTarifas() {
+    //     $.ajax({
+    //         type: 'POST',
+    //         dataType: 'json',
+    //         //url: 'php/listar_tarifas.php',
+    //         url: 'http://localhost/futbolistas/listar_tarifas.php',
+    //         async: false,
+    //         error: function(xhr, status, error) {},
+    //         success: function(data) {
+    //             $('#clinicas').empty();
+    //             $.each(data, function() {
+    //                 $('#clinicas').append(
+    //                     $('<option ></option>').val(this.id_clinicas).html(this.nombre)
+    //                 );
+    //             });
+    //         },
+    //         complete: {
 
-        }
-    });
+    //         }
+    //     });
 
-}
+    // }
 
 });
