@@ -25,7 +25,7 @@ mysql_query('SET names utf8');
  */
 $nombre = $_POST["nombreNuevo"];
 $numcolegiado = $_POST["numcolegiadoNuevo"];
-$clinicas = $_POST["clinicas2"];
+$clinicas = $_POST["clinicas_n"];
 //echo "id=$id nombre= $nombre colegiado= $numcolegiado clinicas= $clinicas";
 //echo"$query <br>";
 $query1 = "insert into doctores (nombre,numcolegiado) values( 

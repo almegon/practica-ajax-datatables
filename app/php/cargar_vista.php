@@ -31,8 +31,8 @@ $columns = array(
     array( 'db' => 'id_doctor', 'dt' => 'idDoctor' ),
     array( 'db' => 'nombre',  'dt' => 'nombre' ),
     array( 'db' => 'numcolegiado',   'dt' => 'numcolegiado' ),
-    array( 'db' => 'nombreclinicas',     'dt' => 'nombreclinicas' ),
-    array( 'db' => 'id_clinicas',     'dt' => 'id_clinicas' )
+    array( 'db' => 'id_clinicas',     'dt' => 'id_clinicas' ),
+    array( 'db' => 'nombreclinicas',     'dt' => 'nombreclinicas' )
 );
  
 // SQL server connection information
